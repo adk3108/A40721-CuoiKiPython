@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import Toast from './Toast';
 
 const CreateProduct = () => {
 
@@ -12,7 +13,7 @@ const CreateProduct = () => {
     const [year_of_manufacture, setYear_of_manufacture] = useState('');
     const [price, setPrice] = useState('');
 
-    
+    const [toastMessage, setToastMessage] = useState<string>('');
 
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -35,6 +36,7 @@ const CreateProduct = () => {
             const response = await axios.post('http://localhost:5000/product', productData);
 
             console.log('Success:', response.data);
+            setToastMessage(response.data);
             // Xử lý kết quả nếu cần
         } catch (error) {
             console.error('Error:', error);
@@ -42,6 +44,10 @@ const CreateProduct = () => {
         }
     }
         
+    function handleCloseToast(): void {
+        setToastMessage('');
+    }
+
     return (
         <>
             {/* <!-- Button trigger modal --> */}
@@ -83,7 +89,9 @@ const CreateProduct = () => {
                                 <input type="text" className="form-control" id="productDescription" value={productDescription} onChange={e => setProductDescription(e.target.value)}/>
                             </div>
                             <button type="submit" className="btn btn-outline-primary w-100 mt-5">Submit</button>
-                        </form>                 
+                        </form>  
+
+                        {/* {toastMessage && <Toast message={toastMessage} onClose={handleCloseToast} />}                */}
                                     </div>
                                 </div>
                 </div>
