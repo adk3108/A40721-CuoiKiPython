@@ -5,6 +5,9 @@ import DATA from '../data/products'
 import { useNavigate } from 'react-router-dom'
 import { TextField, InputAdornment, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import DeleteProduct from '../components/DeleteProduct'
+import UpdateProduct from '../components/UpdateProduct'
+import { useUserContext } from '../contexts/UserContext'
 
 
 type ProductItem = {
@@ -17,6 +20,10 @@ type ProductItem = {
 }
 
 const Products = () => {
+
+    const { user, logout } = useUserContext()
+
+    const isLoggedIn = user.auth
 
     const [products, setProducts] = useState<ProductItem[]>([])
     const navigate = useNavigate();
@@ -84,12 +91,18 @@ const Products = () => {
                 {filteredProducts.map(item => {
                     return (
                         <div key={item.id} className="col-lg-3 col-md-4 col-sm-6 mb-4">
-                            <div className="card myElement" onClick={()=>handleClick(item.id)} >
-                                <img src={item.image_link} className="card-img-top" alt={item.name} />
-                                <div className="card-body" >
+                            <div className="card myElement"  >
+                                <img src={item.image_link} className="card-img-top myElement2" alt={item.name} />
+                                <div className="card-body" onClick={()=>handleClick(item.id)}>
                                     <p className="card-title">{item.name}</p>
                                     <p className="card-text">${item.price}</p>
                                 </div>
+                                {isLoggedIn &&
+                                    <>
+                                        <UpdateProduct></UpdateProduct>
+                                        <DeleteProduct id={item.id}></DeleteProduct>
+                                    </>
+                                }
                             </div>
                         </div>
                     )

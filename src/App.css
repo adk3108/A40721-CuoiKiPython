@@ -47,7 +47,7 @@
 }
 
 /* Thiết lập hiệu ứng khi hover vào */
-.myElement:hover {
+.myElement2:hover {
   /* Scale phần tử lên khi hover vào */
   transform: scale(1.05);
   /* Thay đổi hình dạng của con trỏ chuột khi hover vào */

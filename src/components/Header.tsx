@@ -4,6 +4,7 @@ import CartItem from './CartItem'
 import { useShoppingContext } from '../contexts/ShoppingContext'
 import { formatCurrency } from '../helpers/common'
 import { useUserContext } from '../contexts/UserContext'
+import CreateProduct from './CreateProduct'
 const Header = () => {
     const { cartItems, cartQty, totalPrice } = useShoppingContext()
     const { user, logout } = useUserContext()
@@ -30,6 +31,13 @@ const Header = () => {
                         <li className="nav-item">
                             <Link className="nav-link" to='/contact'>Contact</Link>
                         </li>
+                        { isLoggedIn &&
+                        <li className="nav-item">
+                            <CreateProduct/>
+                        </li>
+                        }
+                        
+
                     </ul>
                 </div>
 
